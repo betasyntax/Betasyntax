@@ -176,7 +176,7 @@ class AuthController extends Controller
   }
   public function resetPassword()
   {
-    $this->csrf_token();
+    // $this->csrf_token();
     $req = $_REQUEST;
     $new_user = $req['email'];
     $token = $req['csrf_token'];
@@ -202,7 +202,7 @@ class AuthController extends Controller
             $error_text .= 'The email provided is not on file.';
           }
         } else {
-          $error_text .= 'All fields are required.';
+          $error_text .= 'Sorry please try again.';
         }
       } else {
         $error_text .= 'You must provide appropiate credentials.';
