@@ -2,14 +2,14 @@
 
 namespace App\Models;
 
-use Betasyntax\Model;
+use Betasyntax\Orm\Model;
 
 Class User extends Model {
 
   protected static $activation_code;
-
   
-  public static $has_many = 'menus';
+  public static $has_many = 'user_properties';
+  public static $has_one = 'user_images';
   
   public static function createUser($req) 
   {

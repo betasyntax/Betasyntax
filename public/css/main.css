@@ -142,6 +142,9 @@ div#header {
   border: 1px solid #000000;
   font-weight: bold;
 }
+input {
+  color:#000;
+}
 input:invalid + label {
   top: 3px;
   opacity: 0;

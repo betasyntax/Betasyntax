@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use Betasyntax\Model;
+use Betasyntax\Orm\Model;
 
 Class Menu extends Model {
 }

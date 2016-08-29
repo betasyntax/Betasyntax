@@ -22,18 +22,8 @@ class HomeController extends Controller
    * returns the homepage
    * @return [string] returns twig template
    */
-  public function index()
+  public function index($id='')
   {
-    app()->logger->log('info','HomeController');
-    debugStack("HomeController");
-    $user = User::find_by(['id'=>[1,59],'email'=>['pynewbie@gmail.com']]);
-    debug($user,'user');
-    $user1 = User::find_by(1);
-    debug($user1,'user1');
-    $user2 = User::find_by(['email'=>['admin@admin.com','pynewbie@gmail.com','test@test.com']]);
-    debug($user2,'user2');
-    $user3 = User::find([1,59]);
-    debug($user3,'user3');
     $c = array(
       'slug'=> 'home'
     );
@@ -51,10 +41,5 @@ class HomeController extends Controller
       'slug'=> 'welcome'
     );
     return view('welcome.haml',$c);
-  }
-
-  public function notFoundError()
-  {
-    return view('Errors/404.haml');
   }
 }

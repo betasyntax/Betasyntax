@@ -31,7 +31,6 @@ class AuthController extends Controller
       $this->app->session->token = bin2hex(random_bytes(32));
     }
     $this->token = $this->app->session->token;
-    // dd($this->token);
   }
 
   public function login()
