@@ -1,6 +1,6 @@
 # Betasyntax Framework
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE.md)
-[![Build Status](https://img.shields.io/travis/betasyntax/framework/master.svg?style=flat-square)](https://travis-ci.org/betasyntax/framework)
+<!--[![Build Status](https://img.shields.io/travis/betasyntax/framework/master.svg?style=flat-square)](https://travis-ci.org/betasyntax/framework)-->
 
 This framework is highly experimental. Until I remove this notice please use at your own risk. You have been warned!
 
@@ -8,10 +8,12 @@ The Betasyntax Framework is an easy to use framework based on PHP. It implements
 
 #### Current features:
 
-* Custom Database Abstraction Layer (Currently only MySQL and PostgreSQL are supported)
+* Custom Database Abstraction Layer (Currently only MySQL and PostgreSQL are supported) using PDO prepared statements.
 * Full support for database migrations and seeding thanks to [Phinx](https://github.com/robmorgan/phinx)
 * Utilizes [Twig](http://twig.sensiolabs.org/), [Haml](http://haml.info/) and [Less](http://lesscss.org/) for easy front end development. Don't like twig or haml? You can implement your own!.
 * Uses [League Container](https://github.com/thephpleague/container) for super simple IoC Container Dependency Injection for the entire framework.
+* Easily create config files.
+* Easily create filesystem locations with integration with [League Filesystem](https://github.com/thephpleague/flysystem)
 * Use Service Providers to manage what components are loaded and what gets injected into your app.
 * Easy to use Middleware via [Relay](http://relayphp.com/)
 * Modular Authentication system for quick setups. Don't want to use the built in auth system, you can build your own and inject it into your app.
