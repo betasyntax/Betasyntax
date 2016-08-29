@@ -76,7 +76,7 @@ class AuthController extends Controller
     $c = array(
       'slug'=>'activated'
     );
-    $user = User::search('activation_code','=',$token['token'],1);
+    $user = User::find_by(['activation_code'=>$token['token']]);
     if(isset($user->activation_code)) {
       $user->activation_code='';
       $user->status = 'enabled';
@@ -91,9 +91,7 @@ class AuthController extends Controller
 
   public function email_activation_code($req,$reset=false)
   {
-    $user = User::search('email','=',$req['email'],1);
-
-
+    $user = User::find_by(['email'=>$req['email']]);
     $action='account/activate/';
     $sub = 'Please activate your account.';
     $cnt1  = 'activate your account';
@@ -126,7 +124,7 @@ class AuthController extends Controller
   public function passwordReset($token) 
   {
     // first check the token with the one in the db
-    $user = User::search('activation_code','=',$token['token'],1);
+    $user = User::find_by(['activation_code'=>$token['token']]);
     if(isset($user->email)) {
 
       $this->csrf_token();
@@ -136,7 +134,7 @@ class AuthController extends Controller
         'token'=>$this->token,
         'user_id'=>$user->id,
         'reset_token'=>$token,
-        'action' => app()->resetPassUrl
+        'action' => $this->resetPassUrl
       );
       view('Auth/resetting_password.haml', $c); 
     } else {
@@ -176,14 +174,13 @@ class AuthController extends Controller
   }
   public function resetPassword()
   {
-    // $this->csrf_token();
     $req = $_REQUEST;
     $new_user = $req['email'];
     $token = $req['csrf_token'];
     $error_text = '';
     if(isset($req['email'])) {
       if (hash_equals($token, $this->app->session->token)) {
-        $user = User::search('email','=',$new_user,1);
+        $user = User::find_by(['email'=>$new_user]);
         if(isset($user->email)) {
           $user->status = 'disabled';
           $user->activation_code =bin2hex(random_bytes(32));
@@ -225,7 +222,7 @@ class AuthController extends Controller
     if($req['email']!=''&&$req['password']!=''&&$req['password1']!='') {
       if (hash_equals($token, app()->session->token)) {   
         if(filter_var($new_user, FILTER_VALIDATE_EMAIL)) {
-          $user = User::search('email','=',$new_user,1);    
+          $user = User::find_by(['email'=>$new_user]);    
           if(!$user) {
             if($pass == $pass_repeat) {
               if(strlen($pass)>=5) {
@@ -282,7 +279,6 @@ class AuthController extends Controller
     $token = $req['csrf_token'];
     if(!empty($req['email'])&&!empty($req['password'])) {
       if (hash_equals($token, $this->app->session->token)) {
-
         if($this->app->auth->authenticate($req)) {
           $this->app->session->isLoggedIn = 1;
           flash()->success('Logged in successfully');
