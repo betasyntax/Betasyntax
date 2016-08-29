@@ -76,7 +76,6 @@ class AuthController extends Controller
     $c = array(
       'slug'=>'activated'
     );
-    // var_dump($token['token']);
     $user = User::search('activation_code','=',$token['token'],1);
     if(isset($user->activation_code)) {
       $user->activation_code='';
@@ -103,7 +102,6 @@ class AuthController extends Controller
       $sub = 'Password Reset Request';
       $cnt1  = 'reset your password';
     }
-    // exit();
     $Subject = $sub;
     $AltBody    = 'Please click on this link to '.$cnt1.': <a href="http://httpserver:8081/'.$action.$user->activation_code.'">http://httpserver:8081/'.$action.$user->activation_code.'</a>';
     $Body    = 'Please click on this link to '.$cnt1.': <a href="http://httpserver:8081/'.$action.$user->activation_code.'">http://httpserver:8081/'.$action.$user->activation_code.'</a>';
