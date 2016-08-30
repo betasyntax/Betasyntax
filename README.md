@@ -103,11 +103,11 @@ and in your Controller or Model you can do this:
 ```php
 $user = getUser($id);
 $user->title = 'Johny';
-$user::save(); //update record
+User::save(); //update record
 
 $user = User::create();
 $user->title = 'Sally';
-$user->save(); //insert record
+User::save(); //insert record
 ```
 The built in ORM also supports has many, has one joins. More on that to come later!
 
