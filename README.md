@@ -30,7 +30,7 @@ Or  you can install the development version:
 git clone https://github.com/betasyntax/betasyntax.git ./
 composer install
 ```
-Next reate a database, edit /conf/config.php to your liking and run the migration to get your dynamic menus working.
+Next create a database, edit /conf/config.php to your liking and run the migration to get your dynamic menus working.
 ```bash
 vendor/bin/phinx migrate -e development
 ```
@@ -47,7 +47,7 @@ vendor/bin/phinx rollback
 ```php
   ['GET','/','index@HomeController','home'] //loads /app/Controllers/HomeController->index()
   ['GET','/user/[i:id]','getUser@AccountController'] //loads /app/Controllers/AccountController->getUser($id)
-  ['GET','/account/[*:string1]/[*:string2]','getUser@AccountController'] //loads /app/Controllers/AccountController->accountMethod($string1,$string2)
+  ['GET','/account/[*:string1]/[*:string2]','index@AccountController'] //loads /app/Controllers/AccountController->index($string1,$string2)
 ```
 ###Controllers (/app/Controllers/HomeController.php)
 ```php
@@ -95,7 +95,7 @@ use Betasyntax\Model;
 
 Class User extends Model {
   public function getUser($id) {
-    return User::find($id); // returns a PDP object
+    return User::find($id); // returns a PD0 object
   }
 }
 ```
@@ -108,6 +108,17 @@ User::save(); //update record
 $user = User::create();
 $user->title = 'Sally';
 User::save(); //insert record
+
+$user = new User();
+$user1 = $user->select(['email','status'])->where('id = ?',[1])->get(); 
+// produces SELECT `email`, `status` FROM `users` WHERE id = 1;
+// If you want to save this record, you need to include the id in the select method in order for the record to update otherwise the sql statement will fail and will return false.
+$user1->status = 'disabled';
+if(User::save()) {
+  $data['record updated'=>true]
+} else {
+  $data['record updated'=>false]
+}
 ```
 The built in ORM also supports has many, has one joins. More on that to come later!
 
@@ -177,10 +188,13 @@ This framework uses haml and twig to render all the layouts and parse your views
 
 /app/helpers.php
 ```php
+  use App/Models/Setting;
+  
   // all helpers should be placed in this function and the variables of the twig function needs to be included in the return array
   public static function helpers()
   {
     $brandingStatus = new \Twig_SimpleFunction('brandingStatus', function () {
+      // If you have a settings model you can do something like this to get things from your models
       $x = Setting::search('key_name','=','show_branding',1);
       for($i=0;$i<count($x);$i++) {
         $s = $x->value;
@@ -204,12 +218,13 @@ return [
     'functions' =>'Betasyntax\Functions',
     // dont like haml change ViewHaml to View
     'view'      =>'Betasyntax\View\ViewHaml',
+    // you can do the same with the authentication system
     'auth'      =>'Betasyntax\Authentication',
     'request'   =>'GuzzleHttp\Psr7\Request',
     'response'  =>'GuzzleHttp\Psr7\Response',
     'router'    =>'Betasyntax\Router\Router',
     'config'    =>'Betasyntax\Config',
-    // add this
+    // add your own classes
     'myCoolApp' =>'MyCoolApp\CoolApp'
   ],
 ```
@@ -219,6 +234,9 @@ You can also specify your middleware in this array like so:
     'auth'      => 'Betasyntax\Authentication',
   ]
 ];
+// To get the app instance anywhere in your app you can do the follwoing:
+$app = app();
+dd($app->myCoolApp);
 ```
 
 This is useful if you want to create your own twig extensions and integrate them into your app. You need to do something like this:
