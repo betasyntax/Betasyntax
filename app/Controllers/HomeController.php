@@ -40,6 +40,7 @@ class HomeController extends Controller
       'var_one'=> Fn::myFunction(),
       'slug'=> 'welcome'
     );
+
     return view('welcome.haml',$c);
   }
 }

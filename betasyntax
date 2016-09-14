@@ -1,0 +1,77 @@
+#!/usr/bin/env php
+<?php
+// application.php
+
+require __DIR__.'/vendor/autoload.php';
+
+use Symfony\Component\Console\Application;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputArgument;
+use Symfony\Component\Console\Input\InputOption;
+use Symfony\Component\Console\Output\OutputInterface;
+$app = require_once realpath(__DIR__.'/boot/app.php');
+dd($app);
+$console = new Application();
+
+// ... register commands
+$console
+  ->register('make:controller')
+  ->setDefinition(array(
+      new InputArgument('path', InputArgument::REQUIRED, 'Creates a new controller for your app'),
+    ))
+  ->setDescription('Create a new controller for your application. You can specify a path like so Teams/TeamsController.php.')
+  ->setHelp('
+The <info>make:controller</info> command will create a new controller for you to use in your app.
+ 
+<comment>Samples:</comment>
+  To run with default options:
+    <info>php betasyntax make:controller NameOfController</info>
+')
+  ->setCode(function (InputInterface $input, OutputInterface $output) {
+    $path = $input->getArgument('path');
+    $output->writeln('Creating your new controller in <info>'.__DIR__.'/app/Controllers/'.$path.'.php</info>');
+    $output->writeln('<info>Done!</info>');
+  });
+
+$console
+  ->register('make:model')
+  ->setDefinition(array(
+      new InputArgument('path', InputArgument::REQUIRED, 'Creates a new model for your app'),
+    ))
+  ->setDescription('Create a new model for your application. You can specify a name like so Team')
+  ->setHelp('
+The <info>make:model</info> command will create a new model for you to use in your app.
+ 
+<comment>Samples:</comment>
+  To run with default options:
+    <info>php betasyntax make:model Setting</info>
+')
+  ->setCode(function (InputInterface $input, OutputInterface $output) {
+    $path = $input->getArgument('path');
+    $output->writeln('Creating your new model in <info>'.__DIR__.'/app/Models/'.$path.'.php</info>');
+    $output->writeln('<info>Done!</info>');
+  });
+
+
+$console
+  ->register('make:views')
+  ->setDefinition(array(
+      new InputArgument('paths', InputArgument::REQUIRED, 'Creates new views for your app'),
+    ))
+  ->setDescription('Creates new views for your application. You can specify a views like so: [\'Users/index.haml\',\'Users/update.haml\']')
+  ->setHelp('
+The <info>make:views</info> command creates new views for use in your app.
+ 
+<comment>Samples:</comment>
+  To run with default options:
+    <info>php betasyntax make:views newview.haml</info>
+  Additionally:
+    <info>php betasyntax make:views ["Users/index.haml","Users/update.haml"]</info>
+')
+  ->setCode(function (InputInterface $input, OutputInterface $output) {
+    $path = $input->getArgument('paths');
+    $output->writeln('Creating new view in <info>'.__DIR__.'/app/Views/'.$paths.'</info>');
+    $output->writeln('<info>Done!</info>');
+  });
+
+$console->run();

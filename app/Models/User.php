@@ -10,7 +10,11 @@ Class User extends Model {
   
   public static $has_many = 'user_properties';
   public static $has_one = 'user_images';
-  
+
+  public static function validate() {
+    return true;
+  }
+
   public static function createUser($req) 
   {
     self::$activation_code = bin2hex(random_bytes(32));

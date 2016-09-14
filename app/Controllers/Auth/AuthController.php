@@ -141,6 +141,7 @@ class AuthController extends Controller
       return redirect('/');       
     }
   }
+
   public function passwordResetFinal(){
     $req = $_REQUEST;
     $pass = $req['password'];
@@ -172,6 +173,7 @@ class AuthController extends Controller
       return redirect('/account/password/reset/'.$req['reset_token']);
     }
   }
+  
   public function resetPassword()
   {
     $req = $_REQUEST;
