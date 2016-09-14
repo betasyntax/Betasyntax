@@ -1,6 +1,6 @@
 # Betasyntax Framework
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE.md)
-[![Build Status](https://img.shields.io/travis/betasyntax/framework/master.svg?style=flat-square)](https://travis-ci.org/betasyntax/framework)
+<!--[![Build Status](https://img.shields.io/travis/betasyntax/framework/master.svg?style=flat-square)](https://travis-ci.org/betasyntax/framework)-->
 
 This framework is highly experimental. Until I remove this notice please use at your own risk. You have been warned!
 
@@ -28,7 +28,7 @@ Or  you can install the development version:
 git clone https://github.com/betasyntax/betasyntax.git ./
 composer install
 ```
-Next reate a database, edit /conf/config.php to your liking and run the migration to get your dynamic menus working.
+Next create a database, edit /conf/config.php to your liking and run the migration to get your dynamic menus working.
 ```bash
 vendor/bin/phinx migrate -e development
 ```
