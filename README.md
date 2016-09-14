@@ -106,6 +106,12 @@ $user::save(); //update record
 $user = User::create();
 $user->title = 'Sally';
 $user->save(); //insert record
+
+$rs_author = new Author();
+$author = $rs_author->select("author.id, author.name")->where("author.id",[43])->get();
+
+$author->name = 'Sally';
+$author->save();
 ```
 The built in ORM also supports has many, has one joins. More on that to come later!
 
