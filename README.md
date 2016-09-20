@@ -226,22 +226,6 @@ This framework uses haml and twig to render all the layouts and parse your views
     ];
   }
 ```
-
-If you want to create your own twig extensions and integrate them into your app. You need to do something like this:
-/app/helper.php
-```php
-<?php 
-use Betasyntax\Wayfinder;
-
-$view = $app->container->get($app->getViewObjectStr());
-
-$wayfinder = new \Twig_SimpleFunction('Wayfinder', function ($slug) {
-  Wayfinder::_setSlug($slug);
-  $data = Wayfinder::tree(0);
-});
-// now you can use wayfinder any where in your views.
-$view->twig->addFunction($wayfinder);
-```
-## License
+### License
 
 The Betasyntax framework is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT).
