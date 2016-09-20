@@ -115,6 +115,36 @@ $author::save();
 ```
 The built in ORM also supports has many, has one joins. More on that to come later!
 
+### Service Providers and Middlware
+If you want to use one of the many php packages out there simply composer.json file and then edit the conf/app.php file. The package will be automatically injected into your application.
+
+/conf/app.php
+```php
+<?php
+<?php
+return [
+  'core_providers' => [
+    'functions'   => 'Betasyntax\Functions',
+    'debugbar'    => 'Betasyntax\DebugBar\DebugBar',
+    'router'      => 'Betasyntax\Router\Router',
+    'mountManager'=> 'Betasyntax\Core\MountManager\Mounts',
+    'logger'      => 'Betasyntax\Logger\Logger',
+    'view'        => 'Betasyntax\View\ViewHaml',
+  ],
+  'providers' => [
+    'helpers'     => 'App\Functions',
+    'middleware'  => 'Betasyntax\Router\MiddlewareService',
+    'request'     => 'GuzzleHttp\Psr7\Request',
+    'response'    => 'GuzzleHttp\Psr7\Response',
+    'filesystem'  => 'League\Filesystem',
+  ],
+  // You can also specify your middleware in this array like so:
+  'middleware' => [
+    'auth'      => 'Betasyntax\Authentication',
+  ]
+];
+```
+
 ###Views 
 /app/Views/layout.haml
 ```haml
@@ -196,36 +226,8 @@ This framework uses haml and twig to render all the layouts and parse your views
     ];
   }
 ```
-### Service Providers and Middlware
-If you want to use one of the many php packages out there simply composer.json file and then edit the conf/app.php file. The package will be automatically injected into your application.
 
-/conf/app.php
-```php
-<?php
-return [
-  'providers' => [
-    // default classes
-    'functions' =>'Betasyntax\Functions',
-    // dont like haml change ViewHaml to View
-    'view'      =>'Betasyntax\View\ViewHaml',
-    'auth'      =>'Betasyntax\Authentication',
-    'request'   =>'GuzzleHttp\Psr7\Request',
-    'response'  =>'GuzzleHttp\Psr7\Response',
-    'router'    =>'Betasyntax\Router\Router',
-    'config'    =>'Betasyntax\Config',
-    // add this
-    'myCoolApp' =>'MyCoolApp\CoolApp'
-  ],
-```
-You can also specify your middleware in this array like so:
-```php
-  'middleware' => [
-    'auth'      => 'Betasyntax\Authentication',
-  ]
-];
-```
-
-This is useful if you want to create your own twig extensions and integrate them into your app. You need to do something like this:
+If you want to create your own twig extensions and integrate them into your app. You need to do something like this:
 /app/helper.php
 ```php
 <?php 
