@@ -76,11 +76,12 @@ class AuthController extends Controller
     $c = array(
       'slug'=>'activated'
     );
-    $user = User::find_by(['activation_code'=>$token['token']]);
+    $userModel = new User;
+    $user = $userModel->find_by(['activation_code'=>$token['token']]);
     if(isset($user->activation_code)) {
       $user->activation_code='';
       $user->status = 'enabled';
-      if(User::save()) {
+      if($user->save()) {
         flash()->success('Account activated. Login below.');
         return redirect($this->loginUrl);
       } 
@@ -91,7 +92,8 @@ class AuthController extends Controller
 
   public function email_activation_code($req,$reset=false)
   {
-    $user = User::find_by(['email'=>$req['email']]);
+    $userModel = new User;
+    $user = $userModel->find_by(['email'=>$req['email']]);
     $action='account/activate/';
     $sub = 'Please activate your account.';
     $cnt1  = 'activate your account';
@@ -124,7 +126,8 @@ class AuthController extends Controller
   public function passwordReset($token) 
   {
     // first check the token with the one in the db
-    $user = User::find_by(['activation_code'=>$token['token']]);
+    $userModel = new User;
+    $user = $userModel->find_by(['activation_code'=>$token['token']]);
     if(isset($user->email)) {
 
       $this->csrf_token();
@@ -149,12 +152,13 @@ class AuthController extends Controller
     $error_text = '';
     if($req['password']!=''&&$req['password1']!='') {
       if($pass == $pass_repeat) {
-        $user = User::find($req['user_id']);
+        $userModel = new User;
+        $user = $userModel->find($req['user_id']);
         if(isset($user->email)) {
           $user->password = password_hash($req['password'], PASSWORD_DEFAULT);
           $user->activation_code = '';
           $user->status = 'enabled';
-          if(User::save()) {
+          if($user->save()) {
             $c = array(
               'slug'=>'login',
             );
@@ -182,7 +186,7 @@ class AuthController extends Controller
     $error_text = '';
     if(isset($req['email'])) {
       if (hash_equals($token, $this->app->session->token)) {
-        $user = User::find_by(['email'=>$new_user]);
+        $user = $userModel->find_by(['email'=>$new_user]);
         if(isset($user->email)) {
           $user->status = 'disabled';
           $user->activation_code =bin2hex(random_bytes(32));
@@ -224,11 +228,12 @@ class AuthController extends Controller
     if($req['email']!=''&&$req['password']!=''&&$req['password1']!='') {
       if (hash_equals($token, app()->session->token)) {   
         if(filter_var($new_user, FILTER_VALIDATE_EMAIL)) {
-          $user = User::find_by(['email'=>$new_user]);    
+          $userModel = new User;
+          $user = $userModel->find_by(['email'=>$new_user]);    
           if(!$user) {
             if($pass == $pass_repeat) {
               if(strlen($pass)>=5) {
-                if(User::createUser($req)) {
+                if($userModel->createUser($req)) {
                   if($this->email_activation_code($req)) {
                     return redirect($this->signupSuccessUrl);
                   }
@@ -284,7 +289,11 @@ class AuthController extends Controller
         if($this->app->auth->authenticate($req)) {
           $this->app->session->isLoggedIn = 1;
           flash()->success('Logged in successfully');
-          return redirect('/');
+          if(app()->session->requestPath=='') {
+            return redirect('/');
+          } else {
+            return redirect(app()->session->requestPath);
+          }
         } else {
           flash()->error('No account exists with those credentials or your account hasn\'t been activated yet.');
           return redirect($this->loginUrl);

@@ -6,24 +6,25 @@ use Betasyntax\Orm\Model;
 
 Class User extends Model {
 
-  protected static $activation_code;
+  protected $activation_code;
   
-  public static $has_many = 'user_properties';
-  public static $has_one = 'user_images';
+  public $has_many = 'user_properties';
+  public $has_one = 'user_images';
 
-  public static function validate() {
+  public function validate() {
     return true;
   }
 
-  public static function createUser($req) 
+  public function createUser($req) 
   {
     self::$activation_code = bin2hex(random_bytes(32));
-    $rec = User::create();
+    $userModel = new User;
+    $rec = $userModel->create();
     $rec->email = $req['email'];
     $rec->password = password_hash($req['password'], PASSWORD_DEFAULT);
     $rec->status = 'disabled';
     $rec->activation_code = self::$activation_code;
-    $save = User::save();
+    $save = $rec->save();
     if ($save) {
       return true;
     } else {

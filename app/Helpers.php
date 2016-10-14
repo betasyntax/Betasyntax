@@ -19,8 +19,25 @@ class Helpers
       return $s;
     });
 
+    $wayfinder = new \Twig_SimpleFunction('Wayfinder', function ($slug='na',$options=null) {
+      if(!$options) {
+        $options = ['auth'=>true,
+                    'category_id'=>0,
+                    'data'=> [
+                      'ul_id'=>'mainmenu'
+                    ]
+                  ];
+      }
+      \Betasyntax\Wayfinder::_setSlug($slug);
+      $data = \Betasyntax\Wayfinder::getMenu($options['category_id']);
+      \Betasyntax\Wayfinder::createTreeView($data,$options['category_id'],true,$options['data']['ul_id']);
+      // $data = \Betasyntax\Wayfinder::tree(0,$auth);
+    });
+
+
     return [
-      'brandingStatus'=>$brandingStatus
+      'brandingStatus'=>$brandingStatus,
+      'Wayfinder'=>$wayfinder
     ];
   }
 }
