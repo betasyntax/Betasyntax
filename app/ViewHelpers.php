@@ -30,10 +30,15 @@ class ViewHelpers
     $wayfinder = new \Twig_SimpleFunction('Wayfinder', function ($slug='na',$parent_id = 0, $category_id = 1, $ul_class='') {
       Wayfinder::setSlug($slug);
       $menu = new Menu;
-      $data = $menu->find_by(['status'=>'enabled','menu_category_id'=>$category_id],'parent_id ASC, site_order ASC');
-      $menuArray = Wayfinder::menuArray($data);
-      $menuArrayData = Wayfinder::tree($menuArray,$parent_id);
-      Wayfinder::buildHtmlTree($menuArrayData,$ul_class);
+      $data = ['status'=>'enabled','menu_category_id'=>$category_id];
+      $orderBy = 'parent_id ASC, site_order ASC';
+      $data = $menu->find_by($data,$orderBy);
+      Wayfinder::buildHtmlTree(
+        Wayfinder::tree(
+          Wayfinder::menuArray($data),
+          $parent_id),
+        $ul_class
+      );
     });
 
     return [
