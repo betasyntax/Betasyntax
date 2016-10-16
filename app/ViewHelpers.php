@@ -1,15 +1,11 @@
 <?php namespace App;
 
 use App\Models\Menu;
-use App\Functions as Fn;
 use Betasyntax\Wayfinder;
 
 class ViewHelpers
 {
-  protected static $debugbarRender;
   protected static $app;
-  protected static $debugbar;
-  protected static $render;
 
   public static function helpers()
   {
