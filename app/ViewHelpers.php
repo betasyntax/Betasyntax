@@ -27,27 +27,13 @@ class ViewHelpers
       return app()->session->isLoggedIn;
     });
 
-    $wayfinder = new \Twig_SimpleFunction('Wayfinder', function ($slug='na',$options=null) {
-      if(!$options) {
-        $options = ['auth'=>true, 'category_id'=>0, 'data'=> ['ul_id'=>'mainmenu']];
-      }
-      Wayfinder::_setSlug($slug);
+    $wayfinder = new \Twig_SimpleFunction('Wayfinder', function ($slug='na',$parent_id = 0, $category_id = 1, $ul_class='') {
+      Wayfinder::setSlug($slug);
       $menu = new Menu;
-      $menuData = [];
-      $data = $menu->find_by(['status'=>'enabled','menu_category_id'=>$options['category_id']],'site_order');
-      if (count($data)>0) {
-        foreach ($data as $key => $value) {
-          $menuData[$value->id] = array(
-            "parent_id" => $value->parent_id, 
-            "name" => $value->title, 
-            "url" => $value->url,
-            "type" => $value->type,
-            "status" => $value->status,
-            "slug" => $value->slug
-          );
-        }
-      }
-      Wayfinder::createTreeView($menuData,$options['category_id'],true,$options['data']['ul_id']);
+      $data = $menu->find_by(['status'=>'enabled','menu_category_id'=>$category_id],'parent_id ASC, site_order ASC');
+      $menuArray = Wayfinder::menuArray($data);
+      $menuArrayData = Wayfinder::tree($menuArray,$parent_id);
+      Wayfinder::buildHtmlTree($menuArrayData,$ul_class);
     });
 
     return [
