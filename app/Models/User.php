@@ -2,14 +2,9 @@
 
 namespace App\Models;
 
-use Betasyntax\Orm\Model;
-
 Class User extends Model {
 
   protected $activation_code;
-  
-  public $has_many = 'user_properties';
-  public $has_one = 'user_images';
 
   public function validate() {
     return true;

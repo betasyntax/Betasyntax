@@ -16,6 +16,6 @@ return [
     'filesystem'  => 'League\Filesystem',
   ],
   'middleware' => [
-    'auth'        => 'Betasyntax\Authentication',
+    'auth'        => 'App\Middleware\Authentication',
   ]
 ];

@@ -22,7 +22,7 @@ class AuthController extends Controller
   {
     $this->middleware = ['logger'];
     $this->app = app();
-    $this->app->auth = $this->app->container->get('Betasyntax\Authentication');
+    $this->app->auth = $this->app->container->get('App\Middleware\Authentication');
   }
 
   public function csrf_token() 

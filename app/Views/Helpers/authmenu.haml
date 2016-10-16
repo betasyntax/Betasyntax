@@ -1,0 +1,9 @@
+%ul.auth
+    - if (isLoggedIn())
+        %li
+            %a{:href=>'/logout'} Logout
+    - else 
+        %li
+            %a{:href=>'/login'} Login
+        %li
+            %a{:href=>'/signup'} Sign Up
