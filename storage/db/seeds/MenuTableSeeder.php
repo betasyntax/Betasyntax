@@ -16,40 +16,40 @@ class MenuTableSeeder extends AbstractSeed
     {
         $data = array(
           array(
-              'parent_id'         => 0,
-              'menu_category_id'  => 0,
-              'title'             => 'Home',
-              'url'               => '',
-              'slug'              => 'home',
-              'type'              => 'internal',
-              'status'            => 'enabled',
-              'site_order'        => '0',
-              'updated_at'        => date('Y-m-d H:i:s'),
-              'created_at'        => date('Y-m-d H:i:s')
+            'menu_id'             => ,
+            'title'               => 'Home',
+            'lft'                 => 0,
+            'rgt'                 => 1,
+            'url'                 => '',
+            'slug'                => 'home',
+            'type'                => 'internal',
+            'status'              => 'enabled',
+            'updated_at'          => date('Y-m-d H:i:s'),
+            'created_at'          => date('Y-m-d H:i:s')
           ),
           array(
-              'parent_id'         => 0,
-              'menu_category_id'  => 0,
-              'title'             => 'Welcome',
-              'url'               => 'welcome',
-              'slug'              => 'welcome',
-              'type'              => 'internal',
-              'status'            => 'enabled',
-              'site_order'        => '0',
-              'updated_at'        => date('Y-m-d H:i:s'),
-              'created_at'        => date('Y-m-d H:i:s')
+            'menu_id'             => ,
+            'title'               => 'Welcome',
+            'lft'                 => 2,
+            'rgt'                 => 3,
+            'url'                 => 'welcome',
+            'slug'                => 'welcome',
+            'type'                => 'internal',
+            'status'              => 'enabled',
+            'updated_at'          => date('Y-m-d H:i:s'),
+            'created_at'          => date('Y-m-d H:i:s')
           ),
           array(
-              'parent_id'         => 0,
-              'menu_category_id'  => 0,
-              'title'             => 'Account',
-              'url'               => 'account',
-              'slug'              => 'account',
-              'type'              => 'internal',
-              'status'            => 'enabled',
-              'site_order'        => '0',
-              'updated_at'        => date('Y-m-d H:i:s'),
-              'created_at'        => date('Y-m-d H:i:s')
+            'menu_id'             => ,
+            'title'               => 'Account',
+            'lft'                 => 4,
+            'rgt'                 => 5,
+            'url'                 => 'account',
+            'slug'                => 'account',
+            'type'                => 'internal',
+            'status'              => 'enabled',
+            'updated_at'          => date('Y-m-d H:i:s'),
+            'created_at'          => date('Y-m-d H:i:s')
           )
         );
 

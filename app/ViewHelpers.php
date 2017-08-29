@@ -23,20 +23,12 @@ class ViewHelpers
       return app()->session->isLoggedIn;
     });
 
-    $wayfinder = new \Twig_SimpleFunction('Wayfinder', function ($slug='na',$parent_id = 0, $category_id = 1, $ul_class='') {
-      Wayfinder::setSlug($slug);
-      $menu = new Menu;
-      $data = ['status'=>'enabled','menu_category_id'=>$category_id];
-      $orderBy = 'parent_id ASC, site_order ASC';
-      $data = $menu->find_by($data,$orderBy);
-      Wayfinder::buildHtmlTree(
-        Wayfinder::tree(
-          Wayfinder::menuArray($data),
-          $parent_id),
-        $ul_class
-      );
-    });
-
+    $wayfinder = new \Twig_SimpleFunction( 
+      'Wayfinder', 
+      function ( $slug='na',$menu_id = 0, $ul_class='') {
+        Wayfinder::buildHtmlTree($slug,$menu_id,$ul_class);
+      }
+    );
     return [
       'brandingStatus'=>$brandingStatus,
       'isLoggedIn'=>$isLoggedIn,
