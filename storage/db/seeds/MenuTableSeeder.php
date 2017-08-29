@@ -16,7 +16,7 @@ class MenuTableSeeder extends AbstractSeed
     {
         $data = array(
           array(
-            'menu_id'             => ,
+            'menu_id'             => 1,
             'title'               => 'Home',
             'lft'                 => 0,
             'rgt'                 => 1,
@@ -28,7 +28,7 @@ class MenuTableSeeder extends AbstractSeed
             'created_at'          => date('Y-m-d H:i:s')
           ),
           array(
-            'menu_id'             => ,
+            'menu_id'             => 1,
             'title'               => 'Welcome',
             'lft'                 => 2,
             'rgt'                 => 3,
@@ -40,7 +40,7 @@ class MenuTableSeeder extends AbstractSeed
             'created_at'          => date('Y-m-d H:i:s')
           ),
           array(
-            'menu_id'             => ,
+            'menu_id'             => 1,
             'title'               => 'Account',
             'lft'                 => 4,
             'rgt'                 => 5,
