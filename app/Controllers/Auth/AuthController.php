@@ -106,6 +106,7 @@ class AuthController extends Controller
     $AltBody    = 'Please click on this link to '.$cnt1.': <a href="http://httpserver:8081/'.$action.$user->activation_code.'">http://httpserver:8081/'.$action.$user->activation_code.'</a>';
     $Body    = 'Please click on this link to '.$cnt1.': <a href="http://httpserver:8081/'.$action.$user->activation_code.'">http://httpserver:8081/'.$action.$user->activation_code.'</a>';
 
+      dd($user->email);
     $data = [
       'from'          =>'pynewbie@gmail.com',
       'FromName'      =>'tester',
@@ -116,7 +117,9 @@ class AuthController extends Controller
       'Body'          =>$Body
     ];
     $mail = new Mailer($data);
+    $mail->SMTPDebug = 2;
     if(!$mail->send()) {
+      // dd($mail->getMailer());
       echo 'Mailer Error: ' . $mail->getMailer()->ErrorInfo;
     } else {
       return true;
