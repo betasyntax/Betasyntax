@@ -34,7 +34,7 @@ Class Authentication
     $userModel = new User;
     $user = $userModel->find_by(['email'=>$req['email'],'status'=>'enabled'],1);
     if(count($user)==1) {
-      if(isset($user->email)){
+      if($user->email!=''){
         if (password_verify($req['password'], $user->password)) {
           return true;
         }
