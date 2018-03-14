@@ -1,7 +1,9 @@
-%ul.auth
+%ul.mainmenu.auth
     - if (isLoggedIn())
         %li
             %a{:href=>'/logout'} Logout
+        %li
+            %a{:href=>'/settings/user'} Profile
     - else 
         %li
             %a{:href=>'/login'} Login

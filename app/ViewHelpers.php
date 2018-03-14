@@ -23,16 +23,27 @@ class ViewHelpers
       return app()->session->isLoggedIn;
     });
 
-    $wayfinder = new \Twig_SimpleFunction( 
-      'Wayfinder', 
-      function ( $slug='na',$menu_id = 0, $ul_class='') {
+    $wayfinder = new \Twig_SimpleFunction( 'Wayfinder', function ($slug='na',$menu_id = 0, $ul_class='') {
         Wayfinder::buildHtmlTree($slug,$menu_id,$ul_class);
       }
     );
+
+    $wayfinderAdmin = new \Twig_SimpleFunction('WayfinderAdmin', function ( $slug='na',$menu_id = 0, $ul_class='') {
+        Wayfinder::buildAdminHtmlTree($slug,$menu_id,$ul_class);
+      }
+    );
+
+    $pathFinder = new \Twig_SimpleFunction('pathFinder', function ($slug) {
+        Wayfinder::pathFinder($slug);
+      }
+    );
+
     return [
       'brandingStatus'=>$brandingStatus,
       'isLoggedIn'=>$isLoggedIn,
-      'Wayfinder'=>$wayfinder
+      'Wayfinder'=>$wayfinder,
+      'WayfinderAdmin'=>$wayfinderAdmin,
+      'pathFinder'=>$pathFinder
     ];
   }
 }

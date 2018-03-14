@@ -20,7 +20,9 @@ Class Authentication
   public function __invoke(Request $request, Response $response, callable $next)
   {
     if(!$this->isLoggedIn()) {
-      app()->session->requestPath = $_SERVER['REQUEST_URI'];
+      if(isset($_SERVER['REQUEST_URI'])) {
+        app()->session->requestPath = $_SERVER['REQUEST_URI'];
+      }
       redirect('/login');
     }
     return $next($request, $response);
@@ -33,12 +35,11 @@ Class Authentication
   public function authenticate($req) {
     $userModel = new User;
     $user = $userModel->find_by(['email'=>$req['email'],'status'=>'enabled'],1);
-    if(count($user)==1) {
-      if($user->email!=''){
+    
+    if(count($user->properties)>0) {
         if (password_verify($req['password'], $user->password)) {
           return true;
         }
-      }
     } else {
       return false;
     }
