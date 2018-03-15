@@ -18,6 +18,8 @@ class CreateMenuTable extends AbstractMigration
               ->addColumn('slug', 'string', array('limit' => 45))
               ->addColumn('type', 'string', array('limit' => 45,'default' => 'internal'))
               ->addColumn('status', 'string', array('limit' => 45,'default' => 'enabled'))
+              ->addColumn('hidden', 'tinyint', array('limit' => 1, 'default' => 0))
+              ->addColumn('is_root', 'tinyint', array('limit' => 1, 'default' => 0))
               ->addColumn('updated_at', 'datetime', array('null' => true))
               ->addColumn('created_at', 'datetime', array('null' => true))
               ->addIndex(array('title', 'url', 'slug'), array('unique' => true))

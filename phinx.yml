@@ -10,17 +10,17 @@ environments:
         adapter: mysql
         host: localhost
         name: production_db
-        user: root
-        pass: ''
+        user: prod_user
+        pass: 'prod_user34'
         port: 3306
         charset: utf8
 
     development:
         adapter: mysql
         host: localhost
-        name: router
-        user: router
-        pass: 'router'
+        name: betasyntax_db
+        user: tester
+        pass: 'testing'
         port: 3306
         charset: utf8
 

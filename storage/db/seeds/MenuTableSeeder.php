@@ -24,6 +24,8 @@ class MenuTableSeeder extends AbstractSeed
             'slug'                => 'home',
             'type'                => 'internal',
             'status'              => 'enabled',
+            'hidden'              => 0,
+            'is_root'             => 0,
             'updated_at'          => date('Y-m-d H:i:s'),
             'created_at'          => date('Y-m-d H:i:s')
           ),
@@ -36,6 +38,8 @@ class MenuTableSeeder extends AbstractSeed
             'slug'                => 'welcome',
             'type'                => 'internal',
             'status'              => 'enabled',
+            'hidden'              => 0,
+            'is_root'             => 0,
             'updated_at'          => date('Y-m-d H:i:s'),
             'created_at'          => date('Y-m-d H:i:s')
           ),
@@ -48,6 +52,8 @@ class MenuTableSeeder extends AbstractSeed
             'slug'                => 'account',
             'type'                => 'internal',
             'status'              => 'enabled',
+            'hidden'              => 0,
+            'is_root'             => 0,
             'updated_at'          => date('Y-m-d H:i:s'),
             'created_at'          => date('Y-m-d H:i:s')
           )

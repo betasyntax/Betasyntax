@@ -119,6 +119,9 @@ ul.mainmenu li.active a {
   text-decoration: none;
   border-bottom: 1px solid orange;
 }
+ul.mainmenu.auth {
+  float: right;
+}
 body.home > nav > .container {
   padding: 0px;
 }
